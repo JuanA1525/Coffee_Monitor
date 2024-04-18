@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../core/app_export.dart';
 import '../presentation/app_navigation_screen/app_navigation_screen.dart';
 import '../presentation/clima_screen/clima_screen.dart';
 import '../presentation/grafica_screen/grafica_screen.dart';
