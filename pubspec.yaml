@@ -1,12 +1,12 @@
 name: coffee_monitor
 description: A new Flutter project.
 version: 1.0.0+1
-environment: 
-  sdk: '>=2.12.0 <3.0.0'
-dependencies: 
-  flutter: 
+environment:
+  sdk: ">=2.12.0 <3.0.0"
+dependencies:
+  flutter:
     sdk: flutter
-  flutter_localizations: 
+  flutter_localizations:
     sdk: flutter
   cached_network_image: ^3.3.0
   flutter_svg: ^2.0.9
@@ -14,26 +14,28 @@ dependencies:
   smooth_page_indicator: ^1.1.0
   intl: ^0.18.0
   connectivity_plus: ^5.0.2
-dev_dependencies: 
-  flutter_test: 
+dev_dependencies:
+  flutter_test:
     sdk: flutter
-flutter: 
+flutter:
   uses-material-design: true
-  assets: 
+  assets:
     - assets/
     - assets/images/
-  fonts: 
+  fonts:
     - family: Inder
-      fonts: 
+      fonts:
         - asset: assets/fonts/InderRegular.ttf
           weight: 400
     - family: Montserrat
-      fonts: 
+      fonts:
         - asset: assets/fonts/MontserratMedium.ttf
           weight: 500
         - asset: assets/fonts/MontserratRegular.ttf
           weight: 400
     - family: Inria Serif
-      fonts: 
+      fonts:
         - asset: assets/fonts/InriaSerifRegular.ttf
           weight: 400
+dependency_overrides:
+  intl: 0.19.0
