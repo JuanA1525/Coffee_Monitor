@@ -1,5 +1,5 @@
+import 'package:coffee_monitor/presentation/home_screen/home_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import '../../core/app_export.dart';
 import '../../widgets/app_bar/custom_app_bar.dart';
 import '../../widgets/custom_drop_down.dart';
@@ -64,9 +64,14 @@ class PergaminoScreen extends StatelessWidget {
                     Row(
                       children: [
                         Expanded(
-                          child: Text(
-                            "Viento",
-                            style: theme.textTheme.bodyLarge,
+                          child: GestureDetector(
+                            onTap: () {
+                              onTapTxtViento(context);
+                            },
+                            child: Text(
+                              "Viento",
+                              style: theme.textTheme.bodyLarge,
+                            ),
                           ),
                         ),
                         Expanded(
@@ -81,9 +86,14 @@ class PergaminoScreen extends StatelessWidget {
                     Row(
                       children: [
                         Expanded(
-                          child: Text(
-                            "Temperatura",
-                            style: theme.textTheme.bodyLarge,
+                          child: GestureDetector(
+                            onTap: () {
+                              onTapTxtTemperatura(context);
+                            },
+                            child: Text(
+                              "Temperatura",
+                              style: theme.textTheme.bodyLarge,
+                            ),
                           ),
                         ),
                         Expanded(
@@ -158,7 +168,12 @@ class PergaminoScreen extends StatelessWidget {
         icon: Icon(Icons.arrow_back), // replace with your desired icon
         iconSize: 30.0, // specify your desired size here
         onPressed: () {
-          // handle your button tap here
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) =>
+                    HomeScreen()), // replace NewPage with the actual page you want to navigate to
+          );
         },
       ),
     );

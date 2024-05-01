@@ -8,12 +8,14 @@ extension on TextStyle {
     );
   }
 
+  // ignore: unused_element
   TextStyle get inder {
     return copyWith(
       fontFamily: 'Inder',
     );
   }
 
+  // ignore: unused_element
   TextStyle get inriaSerif {
     return copyWith(
       fontFamily: 'Inria Serif',

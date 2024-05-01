@@ -3,7 +3,7 @@ import '../presentation/app_navigation_screen/app_navigation_screen.dart';
 import '../presentation/clima_screen/clima_screen.dart';
 import '../presentation/grafica_screen/grafica_screen.dart';
 import '../presentation/home_screen/home_screen.dart';
-import '../presentation/pergamino_screen/pergamino_screen.dart'; // ignore_for_file: must_be_immutable
+import '../presentation/pergamino_screen/pergamino_screen.dart';
 
 // ignore_for_file: must_be_immutable
 class AppRoutes {

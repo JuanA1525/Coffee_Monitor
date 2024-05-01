@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../../core/app_export.dart';
-import '../../widgets/app_bar/appbar_title.dart';
 import '../../widgets/app_bar/custom_app_bar.dart';
 
 class GraficaScreen extends StatelessWidget {
@@ -16,7 +15,7 @@ class GraficaScreen extends StatelessWidget {
         appBar: _buildAppBar(context),
         body: Container(
           width: double.maxFinite,
-          padding: EdgeInsets.symmetric(horizontal: 12.h),
+          padding: EdgeInsets.symmetric(horizontal: 12.h, vertical: 10.v),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -59,10 +58,13 @@ class GraficaScreen extends StatelessWidget {
   /// Section Widget
   PreferredSizeWidget _buildAppBar(BuildContext context) {
     return CustomAppBar(
-      height: 44.v,
-      centerTitle: true,
-      title: AppbarTitle(
-        text: "Caracteristica - Pergamino #1",
+      leading: IconButton(
+        icon: Icon(Icons.arrow_back), // replace with your desired icon
+        iconSize: 30.0, // specify your desired size here
+        onPressed: () {
+          print("Back Button Pressed");
+          Navigator.pop(context);
+        },
       ),
     );
   }

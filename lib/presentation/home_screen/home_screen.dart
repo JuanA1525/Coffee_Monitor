@@ -1,3 +1,4 @@
+import 'package:coffee_monitor/presentation/pergamino_screen/pergamino_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -186,7 +187,17 @@ class _HomeScreenState extends State<HomeScreen> {
               return Padding(
                 padding: EdgeInsets.symmetric(
                     horizontal: 10.0), // Add horizontal padding
-                child: WeatherinfoItemWidget(),
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              PergaminoScreen()), // replace NewPage with the actual page you want to navigate to
+                    );
+                  },
+                  child: WeatherinfoItemWidget(),
+                ),
               );
             },
           ),
