@@ -11,6 +11,15 @@ class ClimaScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        appBar: AppBar(
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back),
+            iconSize: 30.0,
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
+        ),
         body: Container(
           width: double.maxFinite,
           padding: EdgeInsets.symmetric(

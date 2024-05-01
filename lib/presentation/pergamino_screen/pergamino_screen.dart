@@ -1,4 +1,4 @@
-import 'package:coffee_monitor/presentation/home_screen/home_screen.dart';
+import 'package:coffee_monitor/presentation/grafica_screen/grafica_screen.dart';
 import 'package:flutter/material.dart';
 import '../../core/app_export.dart';
 import '../../widgets/app_bar/custom_app_bar.dart';
@@ -18,7 +18,15 @@ class PergaminoScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: _buildAppBar(context),
+        appBar: AppBar(
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back),
+            iconSize: 30.0,
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
+        ),
         body: Container(
           padding: EdgeInsets.only(
             left: 20.h,
@@ -66,7 +74,11 @@ class PergaminoScreen extends StatelessWidget {
                         Expanded(
                           child: GestureDetector(
                             onTap: () {
-                              onTapTxtViento(context);
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => GraficaScreen()),
+                              );
                             },
                             child: Text(
                               "Viento",
@@ -88,7 +100,12 @@ class PergaminoScreen extends StatelessWidget {
                         Expanded(
                           child: GestureDetector(
                             onTap: () {
-                              onTapTxtTemperatura(context);
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        GraficaScreen()), // replace NewPage with the actual page you want to navigate to
+                              );
                             },
                             child: Text(
                               "Temperatura",
@@ -110,7 +127,12 @@ class PergaminoScreen extends StatelessWidget {
                         Expanded(
                           child: GestureDetector(
                             onTap: () {
-                              onTapTxtHumedad(context);
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        GraficaScreen()), // replace NewPage with the actual page you want to navigate to
+                              );
                             },
                             child: Text(
                               "Humedad",
@@ -132,7 +154,12 @@ class PergaminoScreen extends StatelessWidget {
                         Expanded(
                           child: GestureDetector(
                             onTap: () {
-                              onTapTxtLuminocidad(context);
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        GraficaScreen()), // replace NewPage with the actual page you want to navigate to
+                              );
                             },
                             child: Text(
                               "Luminocidad",
@@ -162,18 +189,15 @@ class PergaminoScreen extends StatelessWidget {
   }
 
   /// Section Widget
+  // ignore: unused_element
   PreferredSizeWidget _buildAppBar(BuildContext context) {
     return CustomAppBar(
       leading: IconButton(
         icon: Icon(Icons.arrow_back), // replace with your desired icon
         iconSize: 30.0, // specify your desired size here
         onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) =>
-                    HomeScreen()), // replace NewPage with the actual page you want to navigate to
-          );
+          print("Button Pressed");
+          Navigator.pop(context);
         },
       ),
     );

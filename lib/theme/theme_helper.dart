@@ -34,6 +34,10 @@ class ThemeHelper {
     var colorScheme =
         _supportedColorScheme[_appTheme] ?? ColorSchemes.primaryColorScheme;
     return ThemeData(
+      appBarTheme: AppBarTheme(
+        color:
+            appTheme.green900, // reemplaza con el color que desees para AppBar
+      ),
       visualDensity: VisualDensity.standard,
       colorScheme: colorScheme,
       textTheme: TextThemes.textTheme(colorScheme),

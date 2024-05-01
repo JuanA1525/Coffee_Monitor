@@ -1,3 +1,4 @@
+import 'package:coffee_monitor/presentation/clima_screen/clima_screen.dart';
 import 'package:coffee_monitor/presentation/pergamino_screen/pergamino_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -39,11 +40,19 @@ class _HomeScreenState extends State<HomeScreen> {
                 width: 21.adaptSize,
                 alignment: Alignment.centerRight,
               ),
-              CustomImageView(
-                imagePath: ImageConstant.imgIconDayRainGray90001,
-                height: 82.adaptSize,
-                width: 82.adaptSize,
-                alignment: Alignment.center,
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => ClimaScreen()),
+                  );
+                },
+                child: CustomImageView(
+                  imagePath: ImageConstant.imgIconDayRainGray90001,
+                  height: 82.adaptSize,
+                  width: 82.adaptSize,
+                  alignment: Alignment.center,
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.only(left: 10, right: 10),
