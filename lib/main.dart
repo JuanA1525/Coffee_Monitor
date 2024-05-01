@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
           theme: theme,
           title: 'coffee_monitor',
           debugShowCheckedModeBanner: false,
-          initialRoute: AppRoutes.pergaminoScreen,
+          initialRoute: AppRoutes.appNavigationScreen,
           routes: AppRoutes.routes,
         );
       },

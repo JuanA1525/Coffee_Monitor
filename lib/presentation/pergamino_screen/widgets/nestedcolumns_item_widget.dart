@@ -17,25 +17,22 @@ class NestedcolumnsItemWidget extends StatelessWidget {
       decoration: AppDecoration.fillGray50.copyWith(
         borderRadius: BorderRadiusStyle.roundedBorder5,
       ),
-      width: 88.h,
       child: Container(
-        padding: EdgeInsets.symmetric(
-          horizontal: 20.h,
-          vertical: 5.v,
-        ),
         decoration: AppDecoration.fillGray900.copyWith(
-          borderRadius: BorderRadiusStyle.roundedBorder26,
+          shape: BoxShape.circle,
         ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.end,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              "1",
-              style: theme.textTheme.headlineLarge,
-            )
-          ],
+        child: Center(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                "1",
+                style: theme.textTheme.headlineLarge,
+              )
+            ],
+          ),
         ),
       ),
     );

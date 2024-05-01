@@ -2,27 +2,35 @@ import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import '../../core/app_export.dart';
-import 'widgets/weatherinfo_item_widget.dart'; // ignore_for_file: must_be_immutable
+import 'widgets/weatherinfo_item_widget.dart';
 
-// ignore_for_file: must_be_immutable
-class HomeScreen extends StatelessWidget {
-  HomeScreen({Key? key})
-      : super(
-          key: key,
-        );
+class HomeScreen extends StatefulWidget {
+  HomeScreen({Key? key}) : super(key: key);
 
-  int sliderIndex = 1;
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  int sliderIndex = 0;
 
   @override
   Widget build(BuildContext context) {
+    double screenHeight = MediaQuery.of(context).size.height;
     return SafeArea(
       child: Scaffold(
         backgroundColor: appTheme.gray5001,
         body: Container(
           width: double.maxFinite,
-          padding: EdgeInsets.all(10.h),
+          padding: EdgeInsets.only(
+            left: 20.h,
+            right: 20.h,
+            top: 5.v,
+            bottom: 10.v,
+          ),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               CustomImageView(
                 imagePath: ImageConstant.imgArrowRoundLef,
@@ -36,115 +44,116 @@ class HomeScreen extends StatelessWidget {
                 width: 82.adaptSize,
                 alignment: Alignment.center,
               ),
-              SizedBox(height: 12.v),
               Padding(
-                padding: EdgeInsets.only(
-                  left: 14.h,
-                  right: 40.h,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "Tiempo Estimado",
-                      style: theme.textTheme.bodyLarge,
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(bottom: 2.v),
-                      child: Text(
-                        "3d 12h",
-                        style: CustomTextStyles.bodyLargeBluegray700,
+                padding: const EdgeInsets.only(left: 10, right: 10),
+                child: Container(
+                  height: screenHeight * 0.30, // 30% of screen height
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Row(
+                        children: [
+                          Expanded(
+                            child: FittedBox(
+                              fit: BoxFit.scaleDown,
+                              child: Text(
+                                "Tiempo Estimado",
+                                style: theme.textTheme.bodyLarge,
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            child: Text(
+                              "3d 12h",
+                              textAlign: TextAlign.center,
+                              style: CustomTextStyles.bodyLargeBluegray700,
+                            ),
+                          ),
+                        ],
                       ),
-                    )
-                  ],
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Text(
+                              "Viento",
+                              style: theme.textTheme.bodyLarge,
+                            ),
+                          ),
+                          Expanded(
+                            child: Text(
+                              "5 m/s - EW",
+                              textAlign: TextAlign.center,
+                              style: CustomTextStyles.bodyLargeBluegray700,
+                            ),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Text(
+                              "Temperatura",
+                              style: theme.textTheme.bodyLarge,
+                            ),
+                          ),
+                          Expanded(
+                            child: Text(
+                              "22 °C",
+                              textAlign: TextAlign.center,
+                              style: CustomTextStyles.bodyLargeBluegray700,
+                            ),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: GestureDetector(
+                              onTap: () {
+                                //onTapTxtHumedad(context);
+                              },
+                              child: Text(
+                                "Humedad",
+                                style: theme.textTheme.bodyLarge,
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            child: Text(
+                              "43%",
+                              textAlign: TextAlign.center,
+                              style: CustomTextStyles.bodyLargeBluegray700,
+                            ),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: GestureDetector(
+                              onTap: () {
+                                //onTapTxtLuminocidad(context);
+                              },
+                              child: Text(
+                                "Luminocidad",
+                                style: theme.textTheme.bodyLarge,
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            child: Text(
+                              "21 W/m²",
+                              textAlign: TextAlign.center,
+                              style: CustomTextStyles.bodyLargeBluegray700,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
-              SizedBox(height: 11.v),
-              _buildWeatherDetails(context),
-              SizedBox(height: 10.v),
-              Padding(
-                padding: EdgeInsets.only(
-                  left: 14.h,
-                  right: 47.h,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.only(top: 3.v),
-                      child: Text(
-                        "Temperatura ",
-                        style: theme.textTheme.bodyLarge,
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(bottom: 6.v),
-                      child: Text(
-                        "22°C",
-                        style: CustomTextStyles.bodyLargeBluegray700,
-                      ),
-                    )
-                  ],
-                ),
-              ),
-              SizedBox(height: 6.v),
-              Padding(
-                padding: EdgeInsets.only(
-                  left: 14.h,
-                  right: 49.h,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.only(top: 3.v),
-                      child: Text(
-                        "Humedad",
-                        style: theme.textTheme.bodyLarge,
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(bottom: 6.v),
-                      child: Text(
-                        "43%",
-                        style: CustomTextStyles.bodyLargeBluegray700,
-                      ),
-                    )
-                  ],
-                ),
-              ),
-              SizedBox(height: 7.v),
-              Padding(
-                padding: EdgeInsets.only(
-                  left: 14.h,
-                  right: 32.h,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.only(top: 5.v),
-                      child: Text(
-                        "Luminocidad",
-                        style: theme.textTheme.bodyLarge,
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(bottom: 8.v),
-                      child: Text(
-                        "21 W/m²",
-                        style: CustomTextStyles.bodyLargeBluegray700,
-                      ),
-                    )
-                  ],
-                ),
-              ),
-              SizedBox(height: 15.v),
               _buildPergaminoColumn(context),
-              SizedBox(height: 6.v)
             ],
           ),
         ),
@@ -152,78 +161,52 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  /// Section Widget
-  Widget _buildWeatherDetails(BuildContext context) {
-    return Align(
-      alignment: Alignment.center,
-      child: Padding(
-        padding: EdgeInsets.only(
-          left: 13.h,
-          right: 21.h,
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              "Viento",
-              style: theme.textTheme.bodyLarge,
-            ),
-            Padding(
-              padding: EdgeInsets.only(bottom: 2.v),
-              child: Text(
-                "5 m/s - EW",
-                style: CustomTextStyles.bodyLargeBluegray700,
-              ),
-            )
-          ],
-        ),
-      ),
-    );
-  }
-
-  /// Section Widget
   Widget _buildPergaminoColumn(BuildContext context) {
+    double screenHeight = MediaQuery.of(context).size.height;
     return Align(
       alignment: Alignment.center,
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 18.h),
-        child: Column(
-          children: [
-            CarouselSlider.builder(
-              options: CarouselOptions(
-                height: 220.v,
-                initialPage: 0,
-                autoPlay: true,
-                viewportFraction: 1.0,
-                enableInfiniteScroll: false,
-                scrollDirection: Axis.horizontal,
-                onPageChanged: (index, reason) {
+      child: Column(
+        children: [
+          CarouselSlider.builder(
+            options: CarouselOptions(
+              height: screenHeight * 0.35, // 35% of screen height
+              initialPage: 0,
+              autoPlay: true,
+              viewportFraction: 1,
+              enableInfiniteScroll: false,
+              scrollDirection: Axis.horizontal,
+              onPageChanged: (index, reason) {
+                setState(() {
                   sliderIndex = index;
-                },
-              ),
-              itemCount: 1,
-              itemBuilder: (context, index, realIndex) {
-                return WeatherinfoItemWidget();
+                });
               },
             ),
-            SizedBox(height: 17.v),
-            SizedBox(
-              height: 10.v,
-              child: AnimatedSmoothIndicator(
-                activeIndex: sliderIndex,
-                count: 1,
-                axisDirection: Axis.horizontal,
-                effect: ScrollingDotsEffect(
-                  spacing: 9.7,
-                  activeDotColor: appTheme.lightGreen900,
-                  dotColor: appTheme.green300,
-                  dotHeight: 10.v,
-                  dotWidth: 9.h,
-                ),
+            itemCount: 4,
+            itemBuilder: (context, index, realIndex) {
+              return Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: 10.0), // Add horizontal padding
+                child: WeatherinfoItemWidget(),
+              );
+            },
+          ),
+          SizedBox(height: screenHeight * 0.03), // 2% of screen height
+          SizedBox(
+            height: screenHeight * 0.01, // 1% of screen height
+            child: AnimatedSmoothIndicator(
+              activeIndex: sliderIndex,
+              count: 4,
+              axisDirection: Axis.horizontal,
+              effect: ScrollingDotsEffect(
+                spacing: 10,
+                activeDotColor: appTheme.lightGreen900,
+                dotColor: appTheme.green300,
+                dotHeight: 12,
+                dotWidth: 12,
               ),
-            )
-          ],
-        ),
+            ),
+          )
+        ],
       ),
     );
   }

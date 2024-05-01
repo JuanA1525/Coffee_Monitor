@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import '../../core/app_export.dart';
 import '../../widgets/app_bar/custom_app_bar.dart';
 import '../../widgets/custom_drop_down.dart';
@@ -35,108 +36,111 @@ class PergaminoScreen extends StatelessWidget {
                 "Pergamino #1",
                 style: CustomTextStyles.bodyLarge_1,
               ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Row(
-                    children: [
-                      Expanded(
-                        child: FittedBox(
-                          fit: BoxFit.scaleDown,
+              Container(
+                height: MediaQuery.of(context).size.height * 0.25,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Row(
+                      children: [
+                        Expanded(
+                          child: FittedBox(
+                            fit: BoxFit.scaleDown,
+                            child: Text(
+                              "Tiempo Estimado",
+                              style: theme.textTheme.bodyLarge,
+                            ),
+                          ),
+                        ),
+                        Expanded(
                           child: Text(
-                            "Tiempo Estimado",
+                            "3d 12h",
+                            textAlign: TextAlign.center,
+                            style: CustomTextStyles.bodyLargeBluegray700,
+                          ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            "Viento",
                             style: theme.textTheme.bodyLarge,
                           ),
                         ),
-                      ),
-                      Expanded(
-                        child: Text(
-                          "3d 12h",
-                          textAlign: TextAlign.center,
-                          style: CustomTextStyles.bodyLargeBluegray700,
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: Text(
-                          "Viento",
-                          style: theme.textTheme.bodyLarge,
-                        ),
-                      ),
-                      Expanded(
-                        child: Text(
-                          "5 m/s - EW",
-                          textAlign: TextAlign.center,
-                          style: CustomTextStyles.bodyLargeBluegray700,
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: Text(
-                          "Temperatura",
-                          style: theme.textTheme.bodyLarge,
-                        ),
-                      ),
-                      Expanded(
-                        child: Text(
-                          "22 °C",
-                          textAlign: TextAlign.center,
-                          style: CustomTextStyles.bodyLargeBluegray700,
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: GestureDetector(
-                          onTap: () {
-                            onTapTxtHumedad(context);
-                          },
+                        Expanded(
                           child: Text(
-                            "Humedad",
+                            "5 m/s - EW",
+                            textAlign: TextAlign.center,
+                            style: CustomTextStyles.bodyLargeBluegray700,
+                          ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            "Temperatura",
                             style: theme.textTheme.bodyLarge,
                           ),
                         ),
-                      ),
-                      Expanded(
-                        child: Text(
-                          "43%",
-                          textAlign: TextAlign.center,
-                          style: CustomTextStyles.bodyLargeBluegray700,
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: GestureDetector(
-                          onTap: () {
-                            onTapTxtLuminocidad(context);
-                          },
+                        Expanded(
                           child: Text(
-                            "Luminocidad",
-                            style: theme.textTheme.bodyLarge,
+                            "22 °C",
+                            textAlign: TextAlign.center,
+                            style: CustomTextStyles.bodyLargeBluegray700,
                           ),
                         ),
-                      ),
-                      Expanded(
-                        child: Text(
-                          "21 W/m²",
-                          textAlign: TextAlign.center,
-                          style: CustomTextStyles.bodyLargeBluegray700,
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: GestureDetector(
+                            onTap: () {
+                              onTapTxtHumedad(context);
+                            },
+                            child: Text(
+                              "Humedad",
+                              style: theme.textTheme.bodyLarge,
+                            ),
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                ],
+                        Expanded(
+                          child: Text(
+                            "43%",
+                            textAlign: TextAlign.center,
+                            style: CustomTextStyles.bodyLargeBluegray700,
+                          ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: GestureDetector(
+                            onTap: () {
+                              onTapTxtLuminocidad(context);
+                            },
+                            child: Text(
+                              "Luminocidad",
+                              style: theme.textTheme.bodyLarge,
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          child: Text(
+                            "21 W/m²",
+                            textAlign: TextAlign.center,
+                            style: CustomTextStyles.bodyLargeBluegray700,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
               _buildNestedColumns(context),
               _buildWeatherInfo(context)
@@ -188,22 +192,18 @@ class PergaminoScreen extends StatelessWidget {
   /// Section Widget
   Widget _buildNestedColumns(BuildContext context) {
     return Container(
-      height: 100.v,
+      height: MediaQuery.of(context).size.height * 0.18,
       padding: EdgeInsets.all(5.h),
       decoration: AppDecoration.outlineBlack900.copyWith(
         borderRadius: BorderRadiusStyle.roundedBorder5,
       ),
-      child: ListView.separated(
-        scrollDirection: Axis.horizontal,
-        separatorBuilder: (context, index) {
-          return SizedBox(
-            width: 6.h,
-          );
-        },
-        itemCount: 3,
-        itemBuilder: (context, index) {
-          return NestedcolumnsItemWidget();
-        },
+      child: Row(
+        children: <Widget>[
+          for (int i = 0; i < 3; i++) ...[
+            if (i != 0) SizedBox(width: 5.h),
+            Expanded(child: NestedcolumnsItemWidget()),
+          ],
+        ],
       ),
     );
   }
@@ -211,22 +211,18 @@ class PergaminoScreen extends StatelessWidget {
   /// Section Widget
   Widget _buildWeatherInfo(BuildContext context) {
     return Container(
-      height: 100.v,
+      height: MediaQuery.of(context).size.height * 0.18,
       padding: EdgeInsets.all(5.h),
       decoration: AppDecoration.outlineBlack900.copyWith(
         borderRadius: BorderRadiusStyle.roundedBorder5,
       ),
-      child: ListView.separated(
-        scrollDirection: Axis.horizontal,
-        separatorBuilder: (context, index) {
-          return SizedBox(
-            width: 6.h,
-          );
-        },
-        itemCount: 3,
-        itemBuilder: (context, index) {
-          return Weatherinfo1ItemWidget();
-        },
+      child: Row(
+        children: <Widget>[
+          for (int i = 0; i < 3; i++) ...[
+            if (i != 0) SizedBox(width: 5.h),
+            Expanded(child: Weatherinfo1ItemWidget()),
+          ],
+        ],
       ),
     );
   }
