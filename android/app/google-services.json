@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "298649704352",
+    "project_id": "coffee-monitor-4a02c",
+    "storage_bucket": "coffee-monitor-4a02c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:298649704352:android:8932911a6dd62eebdb76c5",
+        "android_client_info": {
+          "package_name": "com.example.coffee_monitor"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCoGI50wRWn0JUH8GlyqpRBY24Z8AR-3vA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

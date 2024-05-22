@@ -39,13 +39,14 @@ class NetworkInfo implements NetworkInfoI {
   // to check type of internet connectivity
   @override
   Future<ConnectivityResult> get connectivityResult async {
-    return connectivity.checkConnectivity();
+    return connectivity.checkConnectivity().then((results) => results.first);
   }
 
   //check the type on internet connection on changed of internet connection
   @override
   Stream<ConnectivityResult> get onConnectivityChanged =>
-      connectivity.onConnectivityChanged;
+      connectivity.onConnectivityChanged
+          .asyncExpand((results) => Stream.fromIterable(results));
 }
 
 abstract class Failure {}
