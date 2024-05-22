@@ -1,3 +1,5 @@
+import 'package:coffee_monitor/presentation/test_database_screen/test_database_screen.dart';
+import 'package:coffee_monitor/services/firebase_service.dart';
 import 'package:flutter/material.dart';
 import '../presentation/app_navigation_screen/app_navigation_screen.dart';
 import '../presentation/clima_screen/clima_screen.dart';
@@ -19,12 +21,16 @@ class AppRoutes {
 
   static const String initialRoute = '/initialRoute';
 
+  static const String testDatabaseScreen = '/test_database_screen';
+
   static Map<String, WidgetBuilder> routes = {
     homeScreen: (context) => HomeScreen(),
     pergaminoScreen: (context) => PergaminoScreen(),
     graficaScreen: (context) => GraficaScreen(),
     climaScreen: (context) => ClimaScreen(),
     appNavigationScreen: (context) => AppNavigationScreen(),
-    initialRoute: (context) => HomeScreen()
+    initialRoute: (context) => HomeScreen(),
+    testDatabaseScreen: (context) =>
+        TestDatabaseScreen(fincaId: FirestoreService.instance.fincaID),
   };
 }

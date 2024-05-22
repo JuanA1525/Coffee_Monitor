@@ -46,6 +46,12 @@ class AppNavigationScreen extends StatelessWidget {
                           screenTitle: "Clima",
                           onTapScreenTitle: () =>
                               onTapScreenTitle(context, AppRoutes.climaScreen),
+                        ),
+                        _buildScreenTitle(
+                          context,
+                          screenTitle: "Database Test",
+                          onTapScreenTitle: () => onTapScreenTitle(
+                              context, AppRoutes.testDatabaseScreen),
                         )
                       ],
                     ),

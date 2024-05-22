@@ -1,11 +1,18 @@
+import 'dart:async';
+
+import 'package:coffee_monitor/services/firebase_service.dart';
+import 'package:coffee_monitor/services/sensor_data_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'core/app_export.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 
 var globalMessengerKey = GlobalKey<ScaffoldMessengerState>();
+
+FirestoreService firestoreService = FirestoreService.instance;
+SensorDataService sensorDataService = SensorDataService();
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
@@ -13,6 +20,10 @@ Future<void> main() async {
   );
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   ThemeHelper().changeTheme('primary');
+  firestoreService.loadData();
+  //firestoreService.printDatabase();
+  //firestoreService.createModelsFromDatabase();
+
   runApp(MyApp());
 }
 
