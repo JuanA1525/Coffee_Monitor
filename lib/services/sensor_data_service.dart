@@ -1,5 +1,8 @@
 import 'dart:math';
 import 'package:coffee_monitor/models/data.dart';
+import 'package:coffee_monitor/models/pergamino.dart';
+import 'package:flutter/material.dart';
+import 'package:charts_flutter/flutter.dart' as charts;
 
 class SensorDataService {
   // Instancia única del servicio
@@ -26,11 +29,120 @@ class SensorDataService {
     double hum = _generateRandomValue(63, 84);
     double air = _generateRandomValue(0, 12);
     double temp = _generateRandomValue(15, 31);
-    // La exposición solar se actualiza diariamente, por lo que no es aleatoria aquí
     double sun = _generateRandomValue(
         4, 7); // Considera cómo obtener el valor real del sol
     DateTime time = DateTime.now(); // Puedes cambiar esto según sea necesario
 
     return Data(temp: temp, hum: hum, sun: sun, air: air, time: time);
+  }
+
+  Widget generateGraphForPergamino(Pergamino pergamino, String characteristic) {
+    // Colores para cada sector
+    final colors = [
+      charts.MaterialPalette.red.shadeDefault,
+      charts.MaterialPalette.blue.shadeDefault,
+      charts.MaterialPalette.green.shadeDefault,
+    ];
+
+    String charTitle = '';
+
+    switch (characteristic) {
+      case 'hum':
+        {
+          charTitle = "Humedad (%)";
+          break;
+        }
+      case 'temp':
+        {
+          charTitle = "Temperatura (°C)";
+          break;
+        }
+      case 'air':
+        {
+          charTitle = "Viento (m/s)";
+          break;
+        }
+      case 'sun':
+        {
+          charTitle = "Tiempo Solar (h)";
+          break;
+        }
+      default:
+        charTitle = "Caracteristica";
+    }
+
+    // Series de datos
+    List<charts.Series<Data, DateTime>> seriesList = [];
+
+    DateTime now = DateTime.now();
+    DateTime startOfDay = DateTime(now.year, now.month, now.day);
+
+    for (int i = 0; i < pergamino.sectorList.length; i++) {
+      var sector = pergamino.sectorList[i];
+      List<Data> sortedData = sector.dataList
+          .where((data) => data.time.isAfter(startOfDay))
+          .toList();
+      sortedData.sort((a, b) => a.time.compareTo(b.time));
+
+      var data = sortedData.take(20).toList();
+
+      seriesList.add(
+        charts.Series<Data, DateTime>(
+          id: 'Sector ${sector.numero}',
+          colorFn: (_, __) => colors[i % colors.length],
+          domainFn: (Data data, _) => data.time,
+          measureFn: (Data data, _) {
+            switch (characteristic) {
+              case 'hum':
+                {
+                  return data.hum;
+                }
+              case 'temp':
+                {
+                  return data.temp;
+                }
+              case 'air':
+                {
+                  return data.air;
+                }
+              case 'sun':
+                {
+                  return data.sun;
+                }
+              default:
+                return 0.0;
+            }
+          },
+          data: data,
+        ),
+      );
+    }
+
+    return charts.TimeSeriesChart(
+      seriesList,
+      animate: true,
+      dateTimeFactory: const charts.LocalDateTimeFactory(),
+      behaviors: [
+        charts.SeriesLegend(
+          position: charts.BehaviorPosition.bottom,
+          outsideJustification: charts.OutsideJustification.middleDrawArea,
+        ),
+        charts.ChartTitle('Tiempo',
+            behaviorPosition: charts.BehaviorPosition.bottom,
+            titleOutsideJustification:
+                charts.OutsideJustification.middleDrawArea),
+        charts.ChartTitle(charTitle,
+            behaviorPosition: charts.BehaviorPosition.start,
+            titleOutsideJustification:
+                charts.OutsideJustification.middleDrawArea),
+      ],
+      defaultRenderer: charts.LineRendererConfig(
+        includePoints: true,
+        includeArea: true,
+        stacked: false,
+        radiusPx: 4.0,
+        strokeWidthPx: 2.0,
+      ),
+    );
   }
 }

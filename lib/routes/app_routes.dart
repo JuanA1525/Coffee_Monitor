@@ -1,6 +1,5 @@
 import 'package:coffee_monitor/presentation/test_database_screen/test_database_screen.dart';
 import 'package:coffee_monitor/services/firebase_service.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import '../presentation/app_navigation_screen/app_navigation_screen.dart';
 import '../presentation/clima_screen/clima_screen.dart';
@@ -28,7 +27,8 @@ class AppRoutes {
     homeScreen: (context) => HomeScreen(),
     pergaminoScreen: (context) =>
         PergaminoScreen(FirestoreService.instance.finca.pergaminoList[0]),
-    graficaScreen: (context) => GraficaScreen(),
+    graficaScreen: (context) =>
+        GraficaScreen(FirestoreService.instance.finca.pergaminoList[0]),
     climaScreen: (context) => ClimaScreen(),
     appNavigationScreen: (context) => AppNavigationScreen(),
     initialRoute: (context) => HomeScreen(),

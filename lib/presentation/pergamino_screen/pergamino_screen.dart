@@ -4,25 +4,27 @@ import 'package:coffee_monitor/services/firebase_service.dart';
 import 'package:flutter/material.dart';
 import '../../core/app_export.dart';
 import '../../widgets/app_bar/custom_app_bar.dart';
-import '../../widgets/custom_drop_down.dart';
 import 'widgets/nestedcolumns_item_widget.dart';
 import 'widgets/weatherinfo1_item_widget.dart'; // ignore_for_file: must_be_immutable
 
-class PergaminoScreen extends StatelessWidget {
+class PergaminoScreen extends StatefulWidget {
   final Pergamino pergamino;
 
-  PergaminoScreen(this.pergamino, {Key? key})
-      : super(
-          key: key,
-        );
+  PergaminoScreen(this.pergamino, {Key? key}) : super(key: key);
 
+  @override
+  _PergaminoScreenState createState() => _PergaminoScreenState();
+}
+
+class _PergaminoScreenState extends State<PergaminoScreen> {
   List<Pergamino> dropdownItemList =
       FirestoreService.instance.finca.pergaminoList;
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: FirestoreService.instance.calculateAveragesPergamino(pergamino),
+        future: FirestoreService.instance
+            .calculateAveragesPergamino(widget.pergamino),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             Map<String, double> averages = snapshot.data as Map<String, double>;
@@ -37,15 +39,26 @@ class PergaminoScreen extends StatelessWidget {
                   leading: IconButton(
                     icon: Icon(Icons.arrow_back),
                     iconSize: 30.0,
+                    color: Colors.white,
                     onPressed: () {
                       Navigator.pop(context);
                     },
                   ),
+                  actions: <Widget>[
+                    IconButton(
+                      icon: Icon(Icons.refresh),
+                      color: Colors.white,
+                      iconSize: 30.0,
+                      onPressed: () {
+                        setState(() {});
+                      },
+                    ),
+                  ],
                 ),
                 body: Container(
                   padding: EdgeInsets.only(
-                    left: 20.h,
-                    right: 20.h,
+                    left: 25.h,
+                    right: 25.h,
                     top: 5.v,
                     bottom: 20.v,
                   ),
@@ -54,9 +67,8 @@ class PergaminoScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      _buildListBox(context),
                       Text(
-                        "Pergamino #" + pergamino.numero.toString(),
+                        "Pergamino #" + widget.pergamino.numero.toString(),
                         style: CustomTextStyles.bodyLarge_1,
                       ),
                       Container(
@@ -93,8 +105,8 @@ class PergaminoScreen extends StatelessWidget {
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                            builder: (context) =>
-                                                GraficaScreen()),
+                                            builder: (context) => GraficaScreen(
+                                                widget.pergamino)),
                                       );
                                     },
                                     child: Text(
@@ -121,8 +133,9 @@ class PergaminoScreen extends StatelessWidget {
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                            builder: (context) =>
-                                                GraficaScreen()), // replace NewPage with the actual page you want to navigate to
+                                            builder: (context) => GraficaScreen(
+                                                widget
+                                                    .pergamino)), // replace NewPage with the actual page you want to navigate to
                                       );
                                     },
                                     child: Text(
@@ -149,8 +162,9 @@ class PergaminoScreen extends StatelessWidget {
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                            builder: (context) =>
-                                                GraficaScreen()), // replace NewPage with the actual page you want to navigate to
+                                            builder: (context) => GraficaScreen(
+                                                widget
+                                                    .pergamino)), // replace NewPage with the actual page you want to navigate to
                                       );
                                     },
                                     child: Text(
@@ -177,8 +191,9 @@ class PergaminoScreen extends StatelessWidget {
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                            builder: (context) =>
-                                                GraficaScreen()), // replace NewPage with the actual page you want to navigate to
+                                            builder: (context) => GraficaScreen(
+                                                widget
+                                                    .pergamino)), // replace NewPage with the actual page you want to navigate to
                                       );
                                     },
                                     child: Text(
@@ -231,35 +246,6 @@ class PergaminoScreen extends StatelessWidget {
   }
 
   /// Section Widget
-  Widget _buildListBox(BuildContext context) {
-    List<String> dropdownStringList = dropdownItemList
-        .map((pergamino) => pergamino.numero.toString())
-        .toList();
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          "Pergaminos",
-          style: theme.textTheme.titleMedium,
-        ),
-        CustomDropDown(
-          icon: Container(
-            margin: EdgeInsets.symmetric(horizontal: 19.h),
-            child: CustomImageView(
-              imagePath: ImageConstant.imgArrowdown,
-              height: 3.v,
-              width: 8.h,
-            ),
-          ),
-          hintText: "Selecciona el Pergamino",
-          items: dropdownStringList,
-        )
-      ],
-    );
-  }
-
-  /// Section Widget
   Widget _buildNestedColumns(BuildContext context) {
     return Container(
       height: MediaQuery.of(context).size.height * 0.18,
@@ -269,9 +255,10 @@ class PergaminoScreen extends StatelessWidget {
       ),
       child: Row(
         children: <Widget>[
-          for (int i = 0; i < pergamino.sectorList.length; i++) ...[
+          for (int i = 0; i < widget.pergamino.sectorList.length; i++) ...[
             if (i != 0) SizedBox(width: 5.h),
-            Expanded(child: NestedcolumnsItemWidget(pergamino.sectorList[i])),
+            Expanded(
+                child: NestedcolumnsItemWidget(widget.pergamino.sectorList[i])),
           ],
         ],
       ),
@@ -288,11 +275,11 @@ class PergaminoScreen extends StatelessWidget {
       ),
       child: Row(
         children: <Widget>[
-          for (int i = 0; i < pergamino.sectorList.length; i++) ...[
+          for (int i = 0; i < widget.pergamino.sectorList.length; i++) ...[
             if (i != 0) SizedBox(width: 5.h),
             Expanded(
-                child: Weatherinfo1ItemWidget(
-                    pergamino.sectorList[i], pergamino.sectorList.length)),
+                child: Weatherinfo1ItemWidget(widget.pergamino.sectorList[i],
+                    widget.pergamino.sectorList.length)),
           ],
         ],
       ),

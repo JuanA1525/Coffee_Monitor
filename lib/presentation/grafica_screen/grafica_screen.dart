@@ -1,12 +1,21 @@
+import 'package:coffee_monitor/main.dart';
+import 'package:coffee_monitor/models/pergamino.dart';
 import 'package:flutter/material.dart';
 import '../../core/app_export.dart';
 
-class GraficaScreen extends StatelessWidget {
-  const GraficaScreen({Key? key})
+class GraficaScreen extends StatefulWidget {
+  final Pergamino pergamino;
+
+  const GraficaScreen(this.pergamino, {Key? key})
       : super(
           key: key,
         );
 
+  @override
+  _GraficaScreenState createState() => _GraficaScreenState();
+}
+
+class _GraficaScreenState extends State<GraficaScreen> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -14,48 +23,115 @@ class GraficaScreen extends StatelessWidget {
         appBar: AppBar(
           leading: IconButton(
             icon: Icon(Icons.arrow_back),
+            color: Colors.white,
             iconSize: 30.0,
             onPressed: () {
               Navigator.pop(context);
             },
           ),
+          actions: <Widget>[
+            IconButton(
+              icon: Icon(Icons.refresh),
+              color: Colors.white,
+              iconSize: 30.0,
+              onPressed: () {
+                setState(() {});
+              },
+            ),
+          ],
         ),
         body: Container(
           width: double.maxFinite,
           padding: EdgeInsets.symmetric(horizontal: 12.h, vertical: 10.v),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: EdgeInsets.only(left: 2.h),
-                child: Text(
-                  "Titulo Grafica #1",
-                  style: CustomTextStyles.bodyMediumGreen900,
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Center(
+                  child: Padding(
+                    padding: EdgeInsets.only(left: 2.h),
+                    child: Text(
+                      "Gráficas de Pergamino #" +
+                          widget.pergamino.numero.toString(),
+                      style: CustomTextStyles.bodyLargeBluegray700,
+                    ),
+                  ),
                 ),
-              ),
-              Container(
-                height: 165.v,
-                width: 288.h,
-                margin: EdgeInsets.only(left: 4.h),
-                decoration: BoxDecoration(
-                  color: appTheme.blueGray100,
+                Divider(),
+                Center(
+                  child: Padding(
+                    padding: EdgeInsets.only(left: 2.h),
+                    child: Text(
+                      "Tiempo x Humedad Relativa (%)",
+                      style: CustomTextStyles.bodyLarge16,
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
                 ),
-              ),
-              SizedBox(height: 11.v),
-              Text(
-                "Titulo Grafica #2",
-                style: CustomTextStyles.bodyMediumGreen900,
-              ),
-              SizedBox(height: 5.v),
-              Container(
-                height: 165.v,
-                width: 288.h,
-                margin: EdgeInsets.only(left: 4.h),
-                decoration: BoxDecoration(
-                  color: appTheme.blueGray100,
+                Center(
+                  child: Container(
+                    height: 165.v,
+                    width: 288.h,
+                    child: sensorDataService.generateGraphForPergamino(
+                        widget.pergamino, 'hum'),
+                  ),
                 ),
-              )
-            ],
+                Divider(),
+                Center(
+                  child: Padding(
+                    padding: EdgeInsets.only(left: 2.h),
+                    child: Text(
+                      "Tiempo x Temperatura (°C)",
+                      style: CustomTextStyles.bodyLarge16,
+                    ),
+                  ),
+                ),
+                Center(
+                  child: Container(
+                    height: 165.v,
+                    width: 288.h,
+                    child: sensorDataService.generateGraphForPergamino(
+                        widget.pergamino, 'temp'),
+                  ),
+                ),
+                Divider(),
+                Center(
+                  child: Padding(
+                    padding: EdgeInsets.only(left: 2.h),
+                    child: Text(
+                      "Tiempo x Exposición Solar (h)",
+                      style: CustomTextStyles.bodyLarge16,
+                    ),
+                  ),
+                ),
+                Center(
+                  child: Container(
+                    height: 165.v,
+                    width: 288.h,
+                    child: sensorDataService.generateGraphForPergamino(
+                        widget.pergamino, 'sun'),
+                  ),
+                ),
+                Divider(),
+                Center(
+                  child: Padding(
+                    padding: EdgeInsets.only(left: 2.h),
+                    child: Text(
+                      "Tiempo x Velocidad del Viento (m/s)",
+                      style: CustomTextStyles.bodyLarge16,
+                    ),
+                  ),
+                ),
+                Center(
+                  child: Container(
+                    height: 165.v,
+                    width: 288.h,
+                    child: sensorDataService.generateGraphForPergamino(
+                        widget.pergamino, 'air'),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

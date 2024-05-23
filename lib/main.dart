@@ -18,11 +18,10 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   ThemeHelper().changeTheme('primary');
-  firestoreService.loadData();
-  //firestoreService.printDatabase();
-  //firestoreService.createModelsFromDatabase();
+  await firestoreService.loadData();
 
   runApp(MyApp());
 }
@@ -36,7 +35,7 @@ class MyApp extends StatelessWidget {
           theme: theme,
           title: 'coffee_monitor',
           debugShowCheckedModeBanner: false,
-          initialRoute: AppRoutes.appNavigationScreen,
+          initialRoute: AppRoutes.homeScreen,
           routes: AppRoutes.routes,
         );
       },
