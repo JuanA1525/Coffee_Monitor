@@ -1,8 +1,11 @@
+import 'package:coffee_monitor/models/sector.dart';
 import 'package:flutter/material.dart';
 import '../../../core/app_export.dart'; // ignore: must_be_immutable
 
 class NestedcolumnsItemWidget extends StatelessWidget {
-  const NestedcolumnsItemWidget({Key? key})
+  final Sector sector;
+
+  const NestedcolumnsItemWidget(this.sector, {Key? key})
       : super(
           key: key,
         );
@@ -28,7 +31,7 @@ class NestedcolumnsItemWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                "1",
+                sector.numero.toString(),
                 style: theme.textTheme.headlineLarge,
               )
             ],

@@ -1,4 +1,6 @@
+import 'package:coffee_monitor/models/pergamino.dart';
 import 'package:coffee_monitor/presentation/grafica_screen/grafica_screen.dart';
+import 'package:coffee_monitor/services/firebase_service.dart';
 import 'package:flutter/material.dart';
 import '../../core/app_export.dart';
 import '../../widgets/app_bar/custom_app_bar.dart';
@@ -7,185 +9,210 @@ import 'widgets/nestedcolumns_item_widget.dart';
 import 'widgets/weatherinfo1_item_widget.dart'; // ignore_for_file: must_be_immutable
 
 class PergaminoScreen extends StatelessWidget {
-  PergaminoScreen({Key? key})
+  final Pergamino pergamino;
+
+  PergaminoScreen(this.pergamino, {Key? key})
       : super(
           key: key,
         );
 
-  List<String> dropdownItemList = ["Item One", "Item Two", "Item Three"];
+  List<Pergamino> dropdownItemList =
+      FirestoreService.instance.finca.pergaminoList;
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          leading: IconButton(
-            icon: Icon(Icons.arrow_back),
-            iconSize: 30.0,
-            onPressed: () {
-              Navigator.pop(context);
-            },
-          ),
-        ),
-        body: Container(
-          padding: EdgeInsets.only(
-            left: 20.h,
-            right: 20.h,
-            top: 5.v,
-            bottom: 20.v,
-          ),
-          width: double.maxFinite,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              _buildListBox(context),
-              Text(
-                "Pergamino #1",
-                style: CustomTextStyles.bodyLarge_1,
-              ),
-              Container(
-                height: MediaQuery.of(context).size.height * 0.25,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Row(
-                      children: [
-                        Expanded(
-                          child: FittedBox(
-                            fit: BoxFit.scaleDown,
-                            child: Text(
-                              "Tiempo Estimado",
-                              style: theme.textTheme.bodyLarge,
+    return FutureBuilder(
+        future: FirestoreService.instance.calculateAveragesPergamino(pergamino),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            Map<String, double> averages = snapshot.data as Map<String, double>;
+
+            double? humAveragePergamino = averages['humAveragePergamino'];
+            double? sunAveragePergamino = averages['sunAveragePergamino'];
+            double? tempAveragePergamino = averages['tempAveragePergamino'];
+            double? airAveragePergamino = averages['airAveragePergamino'];
+            return SafeArea(
+              child: Scaffold(
+                appBar: AppBar(
+                  leading: IconButton(
+                    icon: Icon(Icons.arrow_back),
+                    iconSize: 30.0,
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                ),
+                body: Container(
+                  padding: EdgeInsets.only(
+                    left: 20.h,
+                    right: 20.h,
+                    top: 5.v,
+                    bottom: 20.v,
+                  ),
+                  width: double.maxFinite,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      _buildListBox(context),
+                      Text(
+                        "Pergamino #" + pergamino.numero.toString(),
+                        style: CustomTextStyles.bodyLarge_1,
+                      ),
+                      Container(
+                        height: MediaQuery.of(context).size.height * 0.25,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: FittedBox(
+                                    fit: BoxFit.scaleDown,
+                                    child: Text(
+                                      "Tiempo Estimado",
+                                      style: theme.textTheme.bodyLarge,
+                                    ),
+                                  ),
+                                ),
+                                Expanded(
+                                  child: Text(
+                                    "3d 12h",
+                                    textAlign: TextAlign.center,
+                                    style:
+                                        CustomTextStyles.bodyLargeBluegray700,
+                                  ),
+                                ),
+                              ],
                             ),
-                          ),
-                        ),
-                        Expanded(
-                          child: Text(
-                            "3d 12h",
-                            textAlign: TextAlign.center,
-                            style: CustomTextStyles.bodyLargeBluegray700,
-                          ),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => GraficaScreen()),
-                              );
-                            },
-                            child: Text(
-                              "Viento",
-                              style: theme.textTheme.bodyLarge,
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                GraficaScreen()),
+                                      );
+                                    },
+                                    child: Text(
+                                      "Viento",
+                                      style: theme.textTheme.bodyLarge,
+                                    ),
+                                  ),
+                                ),
+                                Expanded(
+                                  child: Text(
+                                    airAveragePergamino.toString() + " m/s",
+                                    textAlign: TextAlign.center,
+                                    style:
+                                        CustomTextStyles.bodyLargeBluegray700,
+                                  ),
+                                ),
+                              ],
                             ),
-                          ),
-                        ),
-                        Expanded(
-                          child: Text(
-                            "5 m/s - EW",
-                            textAlign: TextAlign.center,
-                            style: CustomTextStyles.bodyLargeBluegray700,
-                          ),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        GraficaScreen()), // replace NewPage with the actual page you want to navigate to
-                              );
-                            },
-                            child: Text(
-                              "Temperatura",
-                              style: theme.textTheme.bodyLarge,
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                GraficaScreen()), // replace NewPage with the actual page you want to navigate to
+                                      );
+                                    },
+                                    child: Text(
+                                      "Temperatura",
+                                      style: theme.textTheme.bodyLarge,
+                                    ),
+                                  ),
+                                ),
+                                Expanded(
+                                  child: Text(
+                                    tempAveragePergamino.toString() + " °C",
+                                    textAlign: TextAlign.center,
+                                    style:
+                                        CustomTextStyles.bodyLargeBluegray700,
+                                  ),
+                                ),
+                              ],
                             ),
-                          ),
-                        ),
-                        Expanded(
-                          child: Text(
-                            "22 °C",
-                            textAlign: TextAlign.center,
-                            style: CustomTextStyles.bodyLargeBluegray700,
-                          ),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        GraficaScreen()), // replace NewPage with the actual page you want to navigate to
-                              );
-                            },
-                            child: Text(
-                              "Humedad",
-                              style: theme.textTheme.bodyLarge,
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                GraficaScreen()), // replace NewPage with the actual page you want to navigate to
+                                      );
+                                    },
+                                    child: Text(
+                                      "Humedad",
+                                      style: theme.textTheme.bodyLarge,
+                                    ),
+                                  ),
+                                ),
+                                Expanded(
+                                  child: Text(
+                                    humAveragePergamino.toString() + " %",
+                                    textAlign: TextAlign.center,
+                                    style:
+                                        CustomTextStyles.bodyLargeBluegray700,
+                                  ),
+                                ),
+                              ],
                             ),
-                          ),
-                        ),
-                        Expanded(
-                          child: Text(
-                            "43%",
-                            textAlign: TextAlign.center,
-                            style: CustomTextStyles.bodyLargeBluegray700,
-                          ),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        GraficaScreen()), // replace NewPage with the actual page you want to navigate to
-                              );
-                            },
-                            child: Text(
-                              "Luminocidad",
-                              style: theme.textTheme.bodyLarge,
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                GraficaScreen()), // replace NewPage with the actual page you want to navigate to
+                                      );
+                                    },
+                                    child: Text(
+                                      "Tiempo Solar",
+                                      style: theme.textTheme.bodyLarge,
+                                    ),
+                                  ),
+                                ),
+                                Expanded(
+                                  child: Text(
+                                    sunAveragePergamino.toString() + " h",
+                                    textAlign: TextAlign.center,
+                                    style:
+                                        CustomTextStyles.bodyLargeBluegray700,
+                                  ),
+                                ),
+                              ],
                             ),
-                          ),
+                          ],
                         ),
-                        Expanded(
-                          child: Text(
-                            "21 W/m²",
-                            textAlign: TextAlign.center,
-                            style: CustomTextStyles.bodyLargeBluegray700,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
+                      ),
+                      _buildNestedColumns(context),
+                      _buildWeatherInfo(context)
+                    ],
+                  ),
                 ),
               ),
-              _buildNestedColumns(context),
-              _buildWeatherInfo(context)
-            ],
-          ),
-        ),
-      ),
-    );
+            );
+          } else {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+        });
   }
 
   /// Section Widget
@@ -205,6 +232,10 @@ class PergaminoScreen extends StatelessWidget {
 
   /// Section Widget
   Widget _buildListBox(BuildContext context) {
+    List<String> dropdownStringList = dropdownItemList
+        .map((pergamino) => pergamino.numero.toString())
+        .toList();
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -221,8 +252,8 @@ class PergaminoScreen extends StatelessWidget {
               width: 8.h,
             ),
           ),
-          hintText: "Seelcciona el Pergamino",
-          items: dropdownItemList,
+          hintText: "Selecciona el Pergamino",
+          items: dropdownStringList,
         )
       ],
     );
@@ -238,9 +269,9 @@ class PergaminoScreen extends StatelessWidget {
       ),
       child: Row(
         children: <Widget>[
-          for (int i = 0; i < 3; i++) ...[
+          for (int i = 0; i < pergamino.sectorList.length; i++) ...[
             if (i != 0) SizedBox(width: 5.h),
-            Expanded(child: NestedcolumnsItemWidget()),
+            Expanded(child: NestedcolumnsItemWidget(pergamino.sectorList[i])),
           ],
         ],
       ),
@@ -257,9 +288,11 @@ class PergaminoScreen extends StatelessWidget {
       ),
       child: Row(
         children: <Widget>[
-          for (int i = 0; i < 3; i++) ...[
+          for (int i = 0; i < pergamino.sectorList.length; i++) ...[
             if (i != 0) SizedBox(width: 5.h),
-            Expanded(child: Weatherinfo1ItemWidget()),
+            Expanded(
+                child: Weatherinfo1ItemWidget(
+                    pergamino.sectorList[i], pergamino.sectorList.length)),
           ],
         ],
       ),

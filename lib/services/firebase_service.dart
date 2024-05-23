@@ -1,5 +1,5 @@
 import 'dart:async';
-
+import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:coffee_monitor/models/finca.dart';
 import 'package:coffee_monitor/models/pergamino.dart';
@@ -182,5 +182,137 @@ class FirestoreService {
         print('Error al agregar datos aleatorios: $error');
       }
     });
+  }
+
+  Future<Map<String, double>> calculateAveragesFinca() async {
+    List<double> humValues = [];
+    List<double> sunValues = [];
+    List<double> tempValues = [];
+    List<double> airValues = [];
+
+    // Recorrer todos los pergaminos
+    for (var pergamino in finca.pergaminoList) {
+      // Recorrer todos los sectores
+      for (var sector in pergamino.sectorList) {
+        // Ordenar los datos por tiempo de manera descendente
+        List<Data> sortedData = sector.dataList;
+        sortedData.sort((a, b) => b.time.compareTo(a.time));
+
+        // Tomar los 10 primeros registros (o menos si no hay tantos)
+        int count = min(10, sortedData.length);
+        for (int i = 0; i < count; i++) {
+          var data = sortedData[i];
+          humValues.add(data.hum);
+          sunValues.add(data.sun);
+          tempValues.add(data.temp);
+          airValues.add(data.air);
+        }
+      }
+    }
+
+    // Calcular los promedios
+    int count = humValues.length;
+    double humAverage = count > 0
+        ? double.parse(
+            (humValues.reduce((a, b) => a + b) / count).toStringAsFixed(1))
+        : 0.0;
+    double sunAverage = count > 0
+        ? double.parse(
+            (sunValues.reduce((a, b) => a + b) / count).toStringAsFixed(1))
+        : 0.0;
+    double tempAverage = count > 0
+        ? double.parse(
+            (tempValues.reduce((a, b) => a + b) / count).toStringAsFixed(1))
+        : 0.0;
+    double airAverage = count > 0
+        ? double.parse(
+            (airValues.reduce((a, b) => a + b) / count).toStringAsFixed(1))
+        : 0.0;
+
+    print('Average Humidity: $humAverage');
+    print('Average Sunlight: $sunAverage');
+    print('Average Temperature: $tempAverage');
+    print('Average Air: $airAverage');
+
+    return {
+      'humAverageFinca': humAverage,
+      'sunAverageFinca': sunAverage,
+      'tempAverageFinca': tempAverage,
+      'airAverageFinca': airAverage,
+    };
+  }
+
+  Future<Map<String, double>> calculateAveragesPergamino(
+      Pergamino pergamino) async {
+    List<double> humValues = [];
+    List<double> sunValues = [];
+    List<double> tempValues = [];
+    List<double> airValues = [];
+
+    // Recorrer todos los sectores del pergamino
+    for (var sector in pergamino.sectorList) {
+      // Ordenar los datos por tiempo de manera descendente
+      List<Data> sortedData = sector.dataList;
+      sortedData.sort((a, b) => b.time.compareTo(a.time));
+
+      // Tomar los 10 primeros registros (o menos si no hay tantos)
+      int count = min(10, sortedData.length);
+      for (int i = 0; i < count; i++) {
+        var data = sortedData[i];
+        humValues.add(data.hum);
+        sunValues.add(data.sun);
+        tempValues.add(data.temp);
+        airValues.add(data.air);
+      }
+    }
+
+    // Calcular los promedios
+    int count = humValues.length;
+    double humAverage = count > 0
+        ? double.parse(
+            (humValues.reduce((a, b) => a + b) / count).toStringAsFixed(1))
+        : 0.0;
+    double sunAverage = count > 0
+        ? double.parse(
+            (sunValues.reduce((a, b) => a + b) / count).toStringAsFixed(1))
+        : 0.0;
+    double tempAverage = count > 0
+        ? double.parse(
+            (tempValues.reduce((a, b) => a + b) / count).toStringAsFixed(1))
+        : 0.0;
+    double airAverage = count > 0
+        ? double.parse(
+            (airValues.reduce((a, b) => a + b) / count).toStringAsFixed(1))
+        : 0.0;
+
+    print('Average Humidity for Pergamino #${pergamino.numero}: $humAverage');
+    print('Average Sunlight for Pergamino #${pergamino.numero}: $sunAverage');
+    print(
+        'Average Temperature for Pergamino #${pergamino.numero}: $tempAverage');
+    print('Average Air for Pergamino #${pergamino.numero}: $airAverage');
+
+    return {
+      'humAveragePergamino': humAverage,
+      'sunAveragePergamino': sunAverage,
+      'tempAveragePergamino': tempAverage,
+      'airAveragePergamino': airAverage,
+    };
+  }
+
+  Future<Map<String, double>> getMostRecentData(Sector sector) async {
+    if (sector.dataList.isEmpty) {
+      throw Exception("No data available in this sector.");
+    }
+
+    // Ordenar los datos por tiempo de manera descendente y tomar el más reciente
+    Data mostRecentData = sector.dataList.reduce(
+        (current, next) => current.time.isAfter(next.time) ? current : next);
+
+    return {
+      'hum': mostRecentData.hum,
+      'sun': mostRecentData.sun,
+      'temp': mostRecentData.temp,
+      'air': mostRecentData.air,
+    };
   }
 }

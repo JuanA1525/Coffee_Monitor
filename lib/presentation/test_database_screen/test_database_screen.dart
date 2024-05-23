@@ -45,7 +45,7 @@ class TestDatabaseScreen extends StatelessWidget {
                       Pergamino pergamino = finca.pergaminoList[index];
                       return ListTile(
                         title: Text(
-                            'Pergamino ${pergamino.numero ?? ''}'), // Manejar el valor nulo aquí
+                            'Pergamino ${pergamino.numero}'), // Manejar el valor nulo aquí
                         // Puedes agregar más detalles y navegación a los sectores aquí
                       );
                     },
