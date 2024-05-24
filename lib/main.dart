@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:coffee_monitor/services/firebase_service.dart';
 import 'package:coffee_monitor/services/sensor_data_service.dart';
+import 'package:coffee_monitor/services/model_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'core/app_export.dart';
@@ -12,6 +13,7 @@ var globalMessengerKey = GlobalKey<ScaffoldMessengerState>();
 
 FirestoreService firestoreService = FirestoreService.instance;
 SensorDataService sensorDataService = SensorDataService();
+TFLiteService tfliteService = TFLiteService.instance;
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,9 +21,12 @@ Future<void> main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   ThemeHelper().changeTheme('primary');
+
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+
   await firestoreService.loadData();
+  await tfliteService.loadModel();
 
   runApp(MyApp());
 }
@@ -35,7 +40,7 @@ class MyApp extends StatelessWidget {
           theme: theme,
           title: 'coffee_monitor',
           debugShowCheckedModeBanner: false,
-          initialRoute: AppRoutes.homeScreen,
+          initialRoute: AppRoutes.appNavigationScreen,
           routes: AppRoutes.routes,
         );
       },

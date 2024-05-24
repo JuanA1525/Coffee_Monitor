@@ -2,7 +2,9 @@ import 'dart:math';
 import 'package:coffee_monitor/models/data.dart';
 import 'package:coffee_monitor/models/pergamino.dart';
 import 'package:flutter/material.dart';
-import 'package:charts_flutter/flutter.dart' as charts;
+//import 'package:charts_flutter/flutter.dart' as charts;
+import 'package:community_charts_flutter/community_charts_flutter.dart'
+    as charts;
 
 class SensorDataService {
   // Instancia única del servicio
@@ -29,15 +31,14 @@ class SensorDataService {
     double hum = _generateRandomValue(63, 84);
     double air = _generateRandomValue(0, 12);
     double temp = _generateRandomValue(15, 31);
-    double sun = _generateRandomValue(
-        4, 7); // Considera cómo obtener el valor real del sol
+    double sun = _generateRandomValue(4, 7);
     DateTime time = DateTime.now(); // Puedes cambiar esto según sea necesario
 
     return Data(temp: temp, hum: hum, sun: sun, air: air, time: time);
   }
 
   Widget generateGraphForPergamino(Pergamino pergamino, String characteristic) {
-    // Colores para cada sector
+    // Colors for each sector
     final colors = [
       charts.MaterialPalette.red.shadeDefault,
       charts.MaterialPalette.blue.shadeDefault,
@@ -71,7 +72,7 @@ class SensorDataService {
         charTitle = "Caracteristica";
     }
 
-    // Series de datos
+    // Data series
     List<charts.Series<Data, DateTime>> seriesList = [];
 
     DateTime now = DateTime.now();
@@ -136,7 +137,7 @@ class SensorDataService {
             titleOutsideJustification:
                 charts.OutsideJustification.middleDrawArea),
       ],
-      defaultRenderer: charts.LineRendererConfig(
+      defaultRenderer: charts.LineRendererConfig<DateTime>(
         includePoints: true,
         includeArea: true,
         stacked: false,

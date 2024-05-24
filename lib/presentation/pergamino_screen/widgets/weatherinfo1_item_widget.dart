@@ -25,7 +25,7 @@ class Weatherinfo1ItemWidget extends StatelessWidget {
           double? airSector = dataSector['air'];
 
           dynamic estilo;
-          if (numSectors < 1) {
+          if (numSectors == 2 || numSectors == 3) {
             estilo = CustomTextStyles.bodyMediumGreen900;
           } else {
             estilo = CustomTextStyles.bodySmall_1;
