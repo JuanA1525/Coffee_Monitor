@@ -320,15 +320,11 @@ class FirestoreService {
     try {
       QuerySnapshot querySnapshot = await _db
           .collection('finca')
-          .where('name', isEqualTo: name)
+          .where('name', isEqualTo: name.toString())
           .limit(1)
           .get();
 
-      if (querySnapshot.docs.isNotEmpty) {
-        fincaID = name;
-        return true;
-      } else
-        return false;
+      return querySnapshot.docs.isNotEmpty;
     } catch (e) {
       print('Error checking finca existence: $e');
       return false;

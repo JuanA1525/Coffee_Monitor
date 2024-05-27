@@ -59,6 +59,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ElevatedButton(
                   onPressed: () async {
                     final name = _controller.text;
+                    print("Checking for -> " + name);
                     if (await FirestoreService.instance.doesFincaExist(name)) {
                       Navigator.push(
                         context,
