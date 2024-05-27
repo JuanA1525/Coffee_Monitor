@@ -50,7 +50,14 @@ class _HomeScreenState extends State<HomeScreen> {
                     CustomImageView(
                       imagePath: ImageConstant.imgArrowRoundLef,
                       color: Colors.black,
-                      onTap: () => setState(() {}),
+                      onTap: () {
+                        final snackBar = SnackBar(
+                          content: Text('Actualizando...'),
+                          duration: Duration(milliseconds: 200),
+                        );
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                        setState(() {});
+                      },
                       height: 25.adaptSize,
                       width: 25.adaptSize,
                       alignment: Alignment.centerRight,

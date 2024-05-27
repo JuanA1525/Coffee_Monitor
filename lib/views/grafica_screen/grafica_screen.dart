@@ -37,6 +37,11 @@ class _GraficaScreenState extends State<GraficaScreen> {
               color: Colors.white,
               iconSize: 30.0,
               onPressed: () {
+                final snackBar = SnackBar(
+                  content: Text('Actualizando...'),
+                  duration: Duration(milliseconds: 200),
+                );
+                ScaffoldMessenger.of(context).showSnackBar(snackBar);
                 setState(() {});
               },
             ),

@@ -52,6 +52,11 @@ class _PergaminoScreenState extends State<PergaminoScreen> {
                       color: Colors.white,
                       iconSize: 30.0,
                       onPressed: () {
+                        final snackBar = SnackBar(
+                          content: Text('Actualizando...'),
+                          duration: Duration(milliseconds: 200),
+                        );
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
                         setState(() {});
                       },
                     ),
