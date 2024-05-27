@@ -12,7 +12,7 @@ class FirestoreService {
   final SensorDataService _sensorDataService = SensorDataService();
 
   late Finca finca;
-  final String fincaID;
+  late String fincaID;
 
   // Instancia privada de FirestoreService
   static final FirestoreService _instance = FirestoreService._internal();
@@ -314,5 +314,24 @@ class FirestoreService {
       'temp': mostRecentData.temp,
       'air': mostRecentData.air,
     };
+  }
+
+  Future<bool> doesFincaExist(String name) async {
+    try {
+      QuerySnapshot querySnapshot = await _db
+          .collection('finca')
+          .where('name', isEqualTo: name)
+          .limit(1)
+          .get();
+
+      if (querySnapshot.docs.isNotEmpty) {
+        fincaID = name;
+        return true;
+      } else
+        return false;
+    } catch (e) {
+      print('Error checking finca existence: $e');
+      return false;
+    }
   }
 }

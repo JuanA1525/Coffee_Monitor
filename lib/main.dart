@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
           theme: theme,
           title: 'coffee_monitor',
           debugShowCheckedModeBanner: false,
-          initialRoute: AppRoutes.appNavigationScreen,
+          initialRoute: AppRoutes.loginScreen,
           routes: AppRoutes.routes,
         );
       },

@@ -65,7 +65,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                     ClimaScreen(),
                             transitionsBuilder: (context, animation,
                                 secondaryAnimation, child) {
-                              var begin = Offset(1.0, 0.0);
+                              var begin =
+                                  Offset(0.0, -1.0); // Start from the top
                               var end = Offset.zero;
                               var curve = Curves.ease;
 

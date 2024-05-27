@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:coffee_monitor/services/firebase_service.dart';
 import 'package:coffee_monitor/theme/theme_helper.dart';
 import 'package:coffee_monitor/views/home_screen/home_screen.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +15,8 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  final _controller = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -36,6 +40,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 Padding(
                   padding: EdgeInsets.all(40),
                   child: TextField(
+                    controller: _controller,
                     style: TextStyle(
                       color: appTheme.verdeOscuro,
                     ),
@@ -52,28 +57,41 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
                 ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      PageRouteBuilder(
-                        pageBuilder: (context, animation, secondaryAnimation) =>
-                            HomeScreen(),
-                        transitionsBuilder:
-                            (context, animation, secondaryAnimation, child) {
-                          var begin = Offset(0.0, 1.0); // Start from the bottom
-                          var end = Offset.zero; // End at the top
-                          var curve = Curves.ease;
+                  onPressed: () async {
+                    final name = _controller.text;
+                    if (await FirestoreService.instance.doesFincaExist(name)) {
+                      Navigator.push(
+                        context,
+                        PageRouteBuilder(
+                          pageBuilder:
+                              (context, animation, secondaryAnimation) =>
+                                  HomeScreen(),
+                          transitionsBuilder:
+                              (context, animation, secondaryAnimation, child) {
+                            var begin =
+                                Offset(0.0, 1.0); // Start from the bottom
+                            var end = Offset.zero; // End at the top
+                            var curve = Curves.ease;
 
-                          var tween = Tween(begin: begin, end: end)
-                              .chain(CurveTween(curve: curve));
+                            var tween = Tween(begin: begin, end: end)
+                                .chain(CurveTween(curve: curve));
 
-                          return SlideTransition(
-                            position: animation.drive(tween),
-                            child: child,
-                          );
-                        },
-                      ),
-                    );
+                            return SlideTransition(
+                              position: animation.drive(tween),
+                              child: child,
+                            );
+                          },
+                        ),
+                      );
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                            content: Text(
+                          'No existe ese nombre de Finca en Nuestro Sistema',
+                          textAlign: TextAlign.center,
+                        )),
+                      );
+                    }
                   },
                   child: Text(
                     'Ingresar',
