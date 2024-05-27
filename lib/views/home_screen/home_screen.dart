@@ -1,7 +1,7 @@
 import 'package:coffee_monitor/main.dart';
 import 'package:coffee_monitor/models/finca.dart';
-import 'package:coffee_monitor/presentation/clima_screen/clima_screen.dart';
-import 'package:coffee_monitor/presentation/pergamino_screen/pergamino_screen.dart';
+import 'package:coffee_monitor/views/clima_screen/clima_screen.dart';
+import 'package:coffee_monitor/views/pergamino_screen/pergamino_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -34,7 +34,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
           return SafeArea(
             child: Scaffold(
-              backgroundColor: appTheme.gray5001,
+              backgroundColor: appTheme.colorFondo,
               body: Container(
                 width: double.maxFinite,
                 padding: EdgeInsets.only(
@@ -49,17 +49,35 @@ class _HomeScreenState extends State<HomeScreen> {
                   children: [
                     CustomImageView(
                       imagePath: ImageConstant.imgArrowRoundLef,
+                      color: Colors.black,
                       onTap: () => setState(() {}),
-                      height: 21.adaptSize,
-                      width: 21.adaptSize,
+                      height: 25.adaptSize,
+                      width: 25.adaptSize,
                       alignment: Alignment.centerRight,
                     ),
                     GestureDetector(
                       onTap: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(
-                              builder: (context) => ClimaScreen()),
+                          PageRouteBuilder(
+                            pageBuilder:
+                                (context, animation, secondaryAnimation) =>
+                                    ClimaScreen(),
+                            transitionsBuilder: (context, animation,
+                                secondaryAnimation, child) {
+                              var begin = Offset(1.0, 0.0);
+                              var end = Offset.zero;
+                              var curve = Curves.ease;
+
+                              var tween = Tween(begin: begin, end: end)
+                                  .chain(CurveTween(curve: curve));
+
+                              return SlideTransition(
+                                position: animation.drive(tween),
+                                child: child,
+                              );
+                            },
+                          ),
                         );
                       },
                       child: CustomImageView(
@@ -82,18 +100,23 @@ class _HomeScreenState extends State<HomeScreen> {
                                 Expanded(
                                   child: FittedBox(
                                     fit: BoxFit.scaleDown,
-                                    child: Text(
-                                      "Tiempo Estimado",
-                                      style: theme.textTheme.bodyLarge,
-                                    ),
+                                    child: Text("Tiempo Estimado",
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          fontSize: 16.fSize,
+                                          color: Color(0xFF364027),
+                                          fontWeight: FontWeight.bold,
+                                        )),
                                   ),
                                 ),
                                 Expanded(
                                   child: Text(
-                                    "3d 12h",
+                                    "3d 5h",
                                     textAlign: TextAlign.center,
-                                    style:
-                                        CustomTextStyles.bodyLargeBluegray700,
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16.fSize,
+                                        color: Color(0xFF000000)),
                                   ),
                                 ),
                               ],
@@ -103,15 +126,22 @@ class _HomeScreenState extends State<HomeScreen> {
                                 Expanded(
                                   child: Text(
                                     "Viento",
-                                    style: theme.textTheme.bodyLarge,
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      fontSize: 16.fSize,
+                                      color: Color(0xFF364027),
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
                                 ),
                                 Expanded(
                                   child: Text(
                                     airAverageFinca.toString() + " m/s",
                                     textAlign: TextAlign.center,
-                                    style:
-                                        CustomTextStyles.bodyLargeBluegray700,
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16.fSize,
+                                        color: Color(0xFF000000)),
                                   ),
                                 ),
                               ],
@@ -121,15 +151,22 @@ class _HomeScreenState extends State<HomeScreen> {
                                 Expanded(
                                   child: Text(
                                     "Temperatura",
-                                    style: theme.textTheme.bodyLarge,
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      fontSize: 16.fSize,
+                                      color: Color(0xFF364027),
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
                                 ),
                                 Expanded(
                                   child: Text(
                                     tempAverageFinca.toString() + " °C",
                                     textAlign: TextAlign.center,
-                                    style:
-                                        CustomTextStyles.bodyLargeBluegray700,
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16.fSize,
+                                        color: Color(0xFF000000)),
                                   ),
                                 ),
                               ],
@@ -143,7 +180,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                     },
                                     child: Text(
                                       "Humedad",
-                                      style: theme.textTheme.bodyLarge,
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        fontSize: 16.fSize,
+                                        color: Color(0xFF364027),
+                                        fontWeight: FontWeight.bold,
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -151,8 +193,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                   child: Text(
                                     humAverageFinca.toString() + " %",
                                     textAlign: TextAlign.center,
-                                    style:
-                                        CustomTextStyles.bodyLargeBluegray700,
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16.fSize,
+                                        color: Color(0xFF000000)),
                                   ),
                                 ),
                               ],
@@ -166,7 +210,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                     },
                                     child: Text(
                                       "Tiempo Solar",
-                                      style: theme.textTheme.bodyLarge,
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        fontSize: 16.fSize,
+                                        color: Color(0xFF364027),
+                                        fontWeight: FontWeight.bold,
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -174,8 +223,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                   child: Text(
                                     sunAverageFinca.toString() + " h",
                                     textAlign: TextAlign.center,
-                                    style:
-                                        CustomTextStyles.bodyLargeBluegray700,
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16.fSize,
+                                        color: Color(0xFF000000)),
                                   ),
                                 ),
                               ],
@@ -229,10 +280,24 @@ class _HomeScreenState extends State<HomeScreen> {
                     print("Indice de Pergamino: " + index.toString());
                     Navigator.push(
                       context,
-                      MaterialPageRoute(
-                          builder: (context) => PergaminoScreen(finca
-                                  .pergaminoList[
-                              index])), // replace NewPage with the actual page you want to navigate to
+                      PageRouteBuilder(
+                        pageBuilder: (context, animation, secondaryAnimation) =>
+                            PergaminoScreen(finca.pergaminoList[index]),
+                        transitionsBuilder:
+                            (context, animation, secondaryAnimation, child) {
+                          var begin = Offset(1.0, 0.0);
+                          var end = Offset.zero;
+                          var curve = Curves.ease;
+
+                          var tween = Tween(begin: begin, end: end)
+                              .chain(CurveTween(curve: curve));
+
+                          return SlideTransition(
+                            position: animation.drive(tween),
+                            child: child,
+                          );
+                        },
+                      ),
                     );
                   },
                   child: WeatherinfoItemWidget(finca.pergaminoList[index]),

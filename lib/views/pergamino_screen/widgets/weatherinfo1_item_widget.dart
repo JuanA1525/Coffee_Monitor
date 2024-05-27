@@ -26,9 +26,15 @@ class Weatherinfo1ItemWidget extends StatelessWidget {
 
           dynamic estilo;
           if (numSectors == 3) {
-            estilo = CustomTextStyles.bodySmall_1;
+            estilo = TextStyle(
+              fontSize: 9.fSize,
+              color: Colors.black,
+            );
           } else {
-            estilo = CustomTextStyles.bodyMediumGreen900;
+            estilo = TextStyle(
+              fontSize: 14.fSize,
+              color: Colors.black,
+            );
           }
           return Container(
             padding: EdgeInsets.symmetric(horizontal: 6.h),
@@ -51,10 +57,12 @@ class Weatherinfo1ItemWidget extends StatelessWidget {
                         decoration: AppDecoration.fillGray900.copyWith(
                           borderRadius: BorderRadiusStyle.roundedBorder5,
                         ),
-                        child: Text(
-                          "Vi",
-                          style: CustomTextStyles.bodySmallWhiteA70012_1,
-                        ),
+                        child: Text("Vi",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 12.fSize,
+                              color: appTheme.colorFondo,
+                            )),
                       ),
                       Expanded(
                         child: Text(
@@ -78,10 +86,12 @@ class Weatherinfo1ItemWidget extends StatelessWidget {
                         decoration: AppDecoration.fillGray900.copyWith(
                           borderRadius: BorderRadiusStyle.roundedBorder5,
                         ),
-                        child: Text(
-                          "Te",
-                          style: CustomTextStyles.bodySmallWhiteA70012,
-                        ),
+                        child: Text("Te",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 12.fSize,
+                              color: appTheme.colorFondo,
+                            )),
                       ),
                       Expanded(
                         child: Text(
@@ -105,10 +115,12 @@ class Weatherinfo1ItemWidget extends StatelessWidget {
                         decoration: AppDecoration.fillGray900.copyWith(
                           borderRadius: BorderRadiusStyle.roundedBorder5,
                         ),
-                        child: Text(
-                          "Hu",
-                          style: CustomTextStyles.bodySmallWhiteA700,
-                        ),
+                        child: Text("Hu",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 12.fSize,
+                              color: appTheme.colorFondo,
+                            )),
                       ),
                       Expanded(
                         child: Text(
@@ -132,10 +144,12 @@ class Weatherinfo1ItemWidget extends StatelessWidget {
                         decoration: AppDecoration.fillGray900.copyWith(
                           borderRadius: BorderRadiusStyle.roundedBorder5,
                         ),
-                        child: Text(
-                          "Ts",
-                          style: CustomTextStyles.bodySmallWhiteA700,
-                        ),
+                        child: Text("Ts",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 12.fSize,
+                              color: appTheme.colorFondo,
+                            )),
                       ),
                       Expanded(
                         child: Text(

@@ -1,5 +1,5 @@
 import 'package:coffee_monitor/models/pergamino.dart';
-import 'package:coffee_monitor/presentation/grafica_screen/grafica_screen.dart';
+import 'package:coffee_monitor/views/grafica_screen/grafica_screen.dart';
 import 'package:coffee_monitor/services/firebase_service.dart';
 import 'package:flutter/material.dart';
 import '../../core/app_export.dart';
@@ -35,7 +35,9 @@ class _PergaminoScreenState extends State<PergaminoScreen> {
             double? airAveragePergamino = averages['airAveragePergamino'];
             return SafeArea(
               child: Scaffold(
+                backgroundColor: Color(0xFFCED9B8),
                 appBar: AppBar(
+                  backgroundColor: Color(0xFF364027),
                   leading: IconButton(
                     icon: Icon(Icons.arrow_back),
                     iconSize: 30.0,
@@ -69,7 +71,10 @@ class _PergaminoScreenState extends State<PergaminoScreen> {
                     children: [
                       Text(
                         "Pergamino #" + widget.pergamino.numero.toString(),
-                        style: CustomTextStyles.bodyLarge_1,
+                        style: TextStyle(
+                            fontSize: 24.fSize,
+                            color: Color(0xFF364027),
+                            fontWeight: FontWeight.bold),
                       ),
                       Container(
                         height: MediaQuery.of(context).size.height * 0.25,
@@ -83,7 +88,12 @@ class _PergaminoScreenState extends State<PergaminoScreen> {
                                     fit: BoxFit.scaleDown,
                                     child: Text(
                                       "Tiempo Estimado",
-                                      style: theme.textTheme.bodyLarge,
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        fontSize: 16.fSize,
+                                        color: Color(0xFF364027),
+                                        fontWeight: FontWeight.bold,
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -91,8 +101,10 @@ class _PergaminoScreenState extends State<PergaminoScreen> {
                                   child: Text(
                                     "3d 12h",
                                     textAlign: TextAlign.center,
-                                    style:
-                                        CustomTextStyles.bodyLargeBluegray700,
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16.fSize,
+                                        color: Color(0xFF000000)),
                                   ),
                                 ),
                               ],
@@ -111,7 +123,12 @@ class _PergaminoScreenState extends State<PergaminoScreen> {
                                     },
                                     child: Text(
                                       "Viento",
-                                      style: theme.textTheme.bodyLarge,
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        fontSize: 16.fSize,
+                                        color: Color(0xFF364027),
+                                        fontWeight: FontWeight.bold,
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -119,8 +136,10 @@ class _PergaminoScreenState extends State<PergaminoScreen> {
                                   child: Text(
                                     airAveragePergamino.toString() + " m/s",
                                     textAlign: TextAlign.center,
-                                    style:
-                                        CustomTextStyles.bodyLargeBluegray700,
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16.fSize,
+                                        color: Color(0xFF000000)),
                                   ),
                                 ),
                               ],
@@ -140,7 +159,12 @@ class _PergaminoScreenState extends State<PergaminoScreen> {
                                     },
                                     child: Text(
                                       "Temperatura",
-                                      style: theme.textTheme.bodyLarge,
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        fontSize: 16.fSize,
+                                        color: Color(0xFF364027),
+                                        fontWeight: FontWeight.bold,
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -148,8 +172,10 @@ class _PergaminoScreenState extends State<PergaminoScreen> {
                                   child: Text(
                                     tempAveragePergamino.toString() + " °C",
                                     textAlign: TextAlign.center,
-                                    style:
-                                        CustomTextStyles.bodyLargeBluegray700,
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16.fSize,
+                                        color: Color(0xFF000000)),
                                   ),
                                 ),
                               ],
@@ -169,7 +195,12 @@ class _PergaminoScreenState extends State<PergaminoScreen> {
                                     },
                                     child: Text(
                                       "Humedad",
-                                      style: theme.textTheme.bodyLarge,
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        fontSize: 16.fSize,
+                                        color: Color(0xFF364027),
+                                        fontWeight: FontWeight.bold,
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -177,8 +208,10 @@ class _PergaminoScreenState extends State<PergaminoScreen> {
                                   child: Text(
                                     humAveragePergamino.toString() + " %",
                                     textAlign: TextAlign.center,
-                                    style:
-                                        CustomTextStyles.bodyLargeBluegray700,
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16.fSize,
+                                        color: Color(0xFF000000)),
                                   ),
                                 ),
                               ],
@@ -198,7 +231,12 @@ class _PergaminoScreenState extends State<PergaminoScreen> {
                                     },
                                     child: Text(
                                       "Tiempo Solar",
-                                      style: theme.textTheme.bodyLarge,
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        fontSize: 16.fSize,
+                                        color: Color(0xFF364027),
+                                        fontWeight: FontWeight.bold,
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -206,8 +244,10 @@ class _PergaminoScreenState extends State<PergaminoScreen> {
                                   child: Text(
                                     sunAveragePergamino.toString() + " h",
                                     textAlign: TextAlign.center,
-                                    style:
-                                        CustomTextStyles.bodyLargeBluegray700,
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16.fSize,
+                                        color: Color(0xFF000000)),
                                   ),
                                 ),
                               ],
@@ -248,7 +288,7 @@ class _PergaminoScreenState extends State<PergaminoScreen> {
   /// Section Widget
   Widget _buildNestedColumns(BuildContext context) {
     return Container(
-      height: MediaQuery.of(context).size.height * 0.18,
+      height: MediaQuery.of(context).size.height * 0.20,
       padding: EdgeInsets.all(5.h),
       decoration: AppDecoration.outlineBlack900.copyWith(
         borderRadius: BorderRadiusStyle.roundedBorder5,
@@ -268,7 +308,7 @@ class _PergaminoScreenState extends State<PergaminoScreen> {
   /// Section Widget
   Widget _buildWeatherInfo(BuildContext context) {
     return Container(
-      height: MediaQuery.of(context).size.height * 0.18,
+      height: MediaQuery.of(context).size.height * 0.20,
       padding: EdgeInsets.all(5.h),
       decoration: AppDecoration.outlineBlack900.copyWith(
         borderRadius: BorderRadiusStyle.roundedBorder5,

@@ -1,11 +1,12 @@
-import 'package:coffee_monitor/presentation/test_database_screen/test_database_screen.dart';
+import 'package:coffee_monitor/views/login_screen/login_screen.dart';
+import 'package:coffee_monitor/views/test_database_screen/test_database_screen.dart';
 import 'package:coffee_monitor/services/firebase_service.dart';
 import 'package:flutter/material.dart';
-import '../presentation/app_navigation_screen/app_navigation_screen.dart';
-import '../presentation/clima_screen/clima_screen.dart';
-import '../presentation/grafica_screen/grafica_screen.dart';
-import '../presentation/home_screen/home_screen.dart';
-import '../presentation/pergamino_screen/pergamino_screen.dart';
+import '../views/app_navigation_screen/app_navigation_screen.dart';
+import '../views/clima_screen/clima_screen.dart';
+import '../views/grafica_screen/grafica_screen.dart';
+import '../views/home_screen/home_screen.dart';
+import '../views/pergamino_screen/pergamino_screen.dart';
 
 // ignore_for_file: must_be_immutable
 class AppRoutes {
@@ -23,6 +24,8 @@ class AppRoutes {
 
   static const String testDatabaseScreen = '/test_database_screen';
 
+  static const String loginScreen = '/login_screen';
+
   static Map<String, WidgetBuilder> routes = {
     homeScreen: (context) => HomeScreen(),
     pergaminoScreen: (context) =>
@@ -34,5 +37,6 @@ class AppRoutes {
     initialRoute: (context) => HomeScreen(),
     testDatabaseScreen: (context) =>
         TestDatabaseScreen(fincaId: FirestoreService.instance.fincaID),
+    loginScreen: (context) => LoginScreen(),
   };
 }

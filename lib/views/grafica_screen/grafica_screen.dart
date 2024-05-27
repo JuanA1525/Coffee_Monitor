@@ -20,7 +20,9 @@ class _GraficaScreenState extends State<GraficaScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        backgroundColor: appTheme.colorFondo,
         appBar: AppBar(
+          backgroundColor: appTheme.verdeOscuro,
           leading: IconButton(
             icon: Icon(Icons.arrow_back),
             color: Colors.white,
@@ -53,7 +55,11 @@ class _GraficaScreenState extends State<GraficaScreen> {
                     child: Text(
                       "Gráficas de Pergamino #" +
                           widget.pergamino.numero.toString(),
-                      style: CustomTextStyles.bodyLargeBluegray700,
+                      style: TextStyle(
+                        fontSize: 22.fSize,
+                        color: appTheme.verdeOscuro,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                 ),
@@ -63,7 +69,11 @@ class _GraficaScreenState extends State<GraficaScreen> {
                     padding: EdgeInsets.only(left: 2.h),
                     child: Text(
                       "Tiempo x Humedad Relativa (%)",
-                      style: CustomTextStyles.bodyLarge16,
+                      style: TextStyle(
+                        fontSize: 16.fSize,
+                        color: appTheme.verdeOscuro,
+                        fontWeight: FontWeight.bold,
+                      ),
                       textAlign: TextAlign.center,
                     ),
                   ),
@@ -82,7 +92,11 @@ class _GraficaScreenState extends State<GraficaScreen> {
                     padding: EdgeInsets.only(left: 2.h),
                     child: Text(
                       "Tiempo x Temperatura (°C)",
-                      style: CustomTextStyles.bodyLarge16,
+                      style: TextStyle(
+                        fontSize: 16.fSize,
+                        color: appTheme.verdeOscuro,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                 ),
@@ -100,7 +114,11 @@ class _GraficaScreenState extends State<GraficaScreen> {
                     padding: EdgeInsets.only(left: 2.h),
                     child: Text(
                       "Tiempo x Exposición Solar (h)",
-                      style: CustomTextStyles.bodyLarge16,
+                      style: TextStyle(
+                        fontSize: 16.fSize,
+                        color: appTheme.verdeOscuro,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                 ),
@@ -118,7 +136,11 @@ class _GraficaScreenState extends State<GraficaScreen> {
                     padding: EdgeInsets.only(left: 2.h),
                     child: Text(
                       "Tiempo x Velocidad del Viento (m/s)",
-                      style: CustomTextStyles.bodyLarge16,
+                      style: TextStyle(
+                        fontSize: 16.fSize,
+                        color: appTheme.verdeOscuro,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                 ),

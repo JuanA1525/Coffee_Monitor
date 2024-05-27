@@ -128,14 +128,26 @@ class SensorDataService {
           position: charts.BehaviorPosition.bottom,
           outsideJustification: charts.OutsideJustification.middleDrawArea,
         ),
-        charts.ChartTitle('Tiempo',
-            behaviorPosition: charts.BehaviorPosition.bottom,
-            titleOutsideJustification:
-                charts.OutsideJustification.middleDrawArea),
+        charts.ChartTitle(
+          'Tiempo',
+          behaviorPosition: charts.BehaviorPosition.bottom,
+          titleOutsideJustification: charts.OutsideJustification.middleDrawArea,
+          titleStyleSpec: charts.TextStyleSpec(
+            fontSize: 18,
+            color: charts.Color(r: 0x36, g: 0x40, b: 0x27),
+            fontWeight: 'bold',
+          ),
+        ),
         charts.ChartTitle(charTitle,
             behaviorPosition: charts.BehaviorPosition.start,
             titleOutsideJustification:
-                charts.OutsideJustification.middleDrawArea),
+                charts.OutsideJustification.middleDrawArea,
+            titleStyleSpec: charts.TextStyleSpec(
+              fontSize: 18,
+              color: charts.Color(r: 0x36, g: 0x40, b: 0x27),
+              fontWeight: 'bold',
+            ) // Add this line
+            ),
       ],
       defaultRenderer: charts.LineRendererConfig<DateTime>(
         includePoints: true,

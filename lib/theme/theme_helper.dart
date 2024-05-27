@@ -74,7 +74,7 @@ class TextThemes {
           fontWeight: FontWeight.w400,
         ),
         headlineLarge: TextStyle(
-          color: appTheme.gray50,
+          color: appTheme.colorFondo,
           fontSize: 32.fSize,
           fontFamily: 'Inria Serif',
           fontWeight: FontWeight.w400,
@@ -106,20 +106,21 @@ class PrimaryColors {
 // BlueGray
   Color get blueGray100 => Color(0XFFD9D9D9);
   Color get blueGray400 => Color(0XFF888888);
-  Color get blueGray700 => Color(0XFF525252);
+  Color get blueGray700 => Color.fromARGB(255, 255, 255, 255);
   Color get blueGray900 => Color(0XFF333333);
 // Gray
   Color get gray50 => Color(0XFFF7FFF4);
-  Color get gray5001 => Color(0XFFF7FFF3);
+  Color get colorFondo => Color(0XFFCED9B8);
   Color get gray700 => Color(0XFF666666);
   Color get gray900 => Color(0XFF153C1B);
+  Color get verdeOscuro => Color(0XFF364027);
   Color get gray90001 => Color(0XFF082612);
 // Green
   Color get green300 => Color(0XFF8BA77E);
   Color get green700 => Color(0XFF428C47);
   Color get green900 => Color(0XFF25592D);
 // LightGreenf
-  Color get lightGreen2007f => Color(0X7FB7D9A7);
+  Color get lightGreen2007f => Color(0XFF364027);
 // LightGreen
   Color get lightGreen900 => Color(0XFF37502B);
 // White

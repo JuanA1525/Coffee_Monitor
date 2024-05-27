@@ -4,13 +4,13 @@ import '../core/app_export.dart';
 class AppDecoration {
   // Fill decorations
   static BoxDecoration get fillGray => BoxDecoration(
-        color: appTheme.gray5001,
+        color: appTheme.colorFondo,
       );
   static BoxDecoration get fillGray50 => BoxDecoration(
-        color: appTheme.gray50,
+        color: appTheme.colorFondo,
       );
   static BoxDecoration get fillGray900 => BoxDecoration(
-        color: appTheme.gray900,
+        color: appTheme.verdeOscuro,
       );
   static BoxDecoration get fillWhiteA => BoxDecoration(
         color: appTheme.whiteA700,
@@ -31,15 +31,15 @@ class AppDecoration {
         ],
       );
   static BoxDecoration get outlineBlack900 => BoxDecoration(
-        color: appTheme.green900,
+        color: appTheme.verdeOscuro,
         boxShadow: [
           BoxShadow(
             color: appTheme.black900.withOpacity(0.25),
-            spreadRadius: 2.h,
-            blurRadius: 2.h,
+            spreadRadius: 3.h,
+            blurRadius: 3.h,
             offset: Offset(
               0,
-              4,
+              5,
             ),
           )
         ],

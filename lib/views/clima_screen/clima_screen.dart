@@ -28,7 +28,9 @@ class _ClimaScreenState extends State<ClimaScreen> {
 
     return SafeArea(
       child: Scaffold(
+        backgroundColor: appTheme.colorFondo,
         appBar: AppBar(
+          backgroundColor: appTheme.verdeOscuro,
           leading: IconButton(
             icon: Icon(Icons.arrow_back),
             color: Colors.white,
@@ -69,7 +71,8 @@ class _ClimaScreenState extends State<ClimaScreen> {
                   children: <Widget>[
                     Text(
                       '22°C',
-                      style: TextStyle(fontSize: 23),
+                      style:
+                          TextStyle(fontSize: 23, fontWeight: FontWeight.bold),
                     ),
                     VerticalDivider(
                       color: Colors.black,
@@ -77,15 +80,17 @@ class _ClimaScreenState extends State<ClimaScreen> {
                     ),
                     Text(
                       '43%',
-                      style: TextStyle(fontSize: 23),
+                      style:
+                          TextStyle(fontSize: 23, fontWeight: FontWeight.bold),
                     ),
                     VerticalDivider(
                       color: Colors.black,
                       thickness: 2,
                     ),
                     Text(
-                      '5 ms - EW',
-                      style: TextStyle(fontSize: 23),
+                      '5 ms',
+                      style:
+                          TextStyle(fontSize: 23, fontWeight: FontWeight.bold),
                     ),
                   ],
                 ),
@@ -93,7 +98,7 @@ class _ClimaScreenState extends State<ClimaScreen> {
               SizedBox(height: 10.v),
               Text(
                 "Estimados de Clima",
-                style: TextStyle(fontSize: 23),
+                style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
               ),
               SizedBox(height: 10.v),
               Table(

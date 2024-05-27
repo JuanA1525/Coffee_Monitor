@@ -25,9 +25,8 @@ class WeatherinfoItemWidget extends StatelessWidget {
           double? airAveragePergamino = averages['airAveragePergamino'];
 
           return Container(
-            padding: EdgeInsets.symmetric(
-              horizontal: 15.h,
-              //vertical: 5.v,
+            padding: EdgeInsets.only(
+              bottom: 5.v,
             ),
             decoration: AppDecoration.outlineBlack.copyWith(
               borderRadius: BorderRadiusStyle.roundedBorder26,
@@ -38,15 +37,20 @@ class WeatherinfoItemWidget extends StatelessWidget {
               children: [
                 Text(
                   "Pergamino #" + pergamino.numero.toString(),
-                  style: theme.textTheme.titleLarge,
+                  style: TextStyle(
+                      fontSize: 22.fSize,
+                      color: Color(0xFFCED9B8),
+                      fontWeight: FontWeight.bold),
                 ),
                 Row(
                   children: [
                     Expanded(
-                      child: Text(
-                        "Tiempo",
-                        style: theme.textTheme.bodyLarge,
-                      ),
+                      child: Text("Tiempo",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontSize: 16.fSize,
+                              color: Color(0xFFCED9B8),
+                              fontWeight: FontWeight.bold)),
                     ),
                     Expanded(
                       child: Text(
@@ -62,7 +66,11 @@ class WeatherinfoItemWidget extends StatelessWidget {
                     Expanded(
                       child: Text(
                         "Viento",
-                        style: theme.textTheme.bodyLarge,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontSize: 16.fSize,
+                            color: Color(0xFFCED9B8),
+                            fontWeight: FontWeight.bold),
                       ),
                     ),
                     Expanded(
@@ -79,7 +87,11 @@ class WeatherinfoItemWidget extends StatelessWidget {
                     Expanded(
                       child: Text(
                         "Temperatura",
-                        style: theme.textTheme.bodyLarge,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontSize: 16.fSize,
+                            color: Color(0xFFCED9B8),
+                            fontWeight: FontWeight.bold),
                       ),
                     ),
                     Expanded(
@@ -100,7 +112,11 @@ class WeatherinfoItemWidget extends StatelessWidget {
                         },
                         child: Text(
                           "Humedad",
-                          style: theme.textTheme.bodyLarge,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontSize: 16.fSize,
+                              color: Color(0xFFCED9B8),
+                              fontWeight: FontWeight.bold),
                         ),
                       ),
                     ),
@@ -122,7 +138,11 @@ class WeatherinfoItemWidget extends StatelessWidget {
                         },
                         child: Text(
                           "Tiempo Solar",
-                          style: theme.textTheme.bodyLarge,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontSize: 16.fSize,
+                              color: Color(0xFFCED9B8),
+                              fontWeight: FontWeight.bold),
                         ),
                       ),
                     ),
