@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <application
-        android:label="coffee_monitor"
+        android:label="Coffee Monitor"
         android:name="io.flutter.plugins.MyApplication"
         android:icon="@mipmap/ic_launcher">
         <activity
